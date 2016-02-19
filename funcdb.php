@@ -9,9 +9,10 @@ class MySQLDataSource{
 	{
 		if(!$this->conexion)
 		{
-			$host = "localhost";
-			$usuario = "u601013811_kike";
-			$password = "kike123";
+			$host = getenv("OPENSHIFT_MYSQL_DB_HOST");
+			$usuario = getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+			$password = getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+			$db = getenv("OPENSHIFT_APP_NAME"));
 			
 			$this->conexion = mysqli_connect($host, $usuario, $password) or die(mysqli_error());
 			
@@ -24,7 +25,7 @@ class MySQLDataSource{
 			
 			mysqli_set_charset($this->conexion, "UTF8");
 
-			$db = mysqli_select_db($this->conexion, "automoviles");
+			$db = mysqli_select_db($this->conexion, $db);
 			
 			if(!$db)
 			{
